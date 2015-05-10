@@ -11,31 +11,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
-  <link rel="stylesheet" href="app.css">
-  <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
-</head>
+  <link rel="stylesheet" href="components/css/app.css">
+  <link rel="stylesheet" href="components/css/bootstrap.min.css">
+  <script rel ="stylesheet" src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+ </head>
 <body>
-  <ul class="menu">
-    <li><a href="#/views/view1">view1</a></li>
-    <li><a href="#/views/view2">view2</a></li>
-  </ul>
-
+  <div class="root-template container">
+    <header>
+      <section class="row banner"> 
+        <h1 class="text-center">Algorithm Visualizations </h1>
+        <h2 class="text-center">
+          <small> An open source computer science Vizualization Platform</small>
+        </h2>
+       </section>
+    </header>
+    <main class="container">
+      <aside class="col-md-3">
+        <header>
+          <h3>Algorithms</h3> 
+        </header>
+      </aside>
+      <article class="col-md-9">
+        <div ng-view></div>
+      </article>
+    </main>
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-  <div ng-view></div>
-
-  <div>Angular seed app: v<span app-version></span></div>
-
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
   -->
+  </div>
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
   <script src="app.js"></script>
-  <script src="views/view1/view1.js"></script>
-  <script src="views/view2/view2.js"></script>
+  <script src="views/default_view/default_view.js"></script>
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
