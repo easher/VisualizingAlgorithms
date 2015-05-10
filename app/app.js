@@ -5,6 +5,7 @@ angular.module('myApp', [
   'ngRoute',
   'myApp.default_view',
   'myApp.version',
+  'myApp.linear_search',
   'ui.bootstrap'
 ]).
 config(['$routeProvider', function($routeProvider) {
