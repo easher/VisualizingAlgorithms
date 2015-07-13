@@ -1,5 +1,8 @@
 <div>
 <h3>Linear Search </h3>
 <h3><small> Finding an element in an unsorted array</small></h3>
-<div d3-bars bar-height="20" bar-padding="5"></div>
+<div ng-controller='linearCtrl'>
+	<div d3-bars bar-height="20" bar-padding="5" data="data" finddata="finddata"></div>
+	<div>
+	<select ng-change="change(find)" data-ng-model="find" data-ng-options="d for d in data"></select>
 </div>

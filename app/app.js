@@ -5,8 +5,7 @@ angular.module('myApp', [
   'ngRoute',
   'myApp.default_view',
   'myApp.version',
-  'myApp.linear_search',
-  'ui.bootstrap'
+  'myApp.linear_search'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: 'views/default_view'});
