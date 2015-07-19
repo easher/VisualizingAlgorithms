@@ -24,7 +24,8 @@ angular.module('myApp.linear_search', ['ngRoute', 'd3', 'd3BarChart'])
     function($window, $timeout, d3Service, d3BarChartUtil) {
         return {
             restrict: 'A',
-
+            
+            //binds data from controller into directive 
             scope: {
                 'finddata': '=',
                 'data': '='
@@ -35,13 +36,13 @@ angular.module('myApp.linear_search', ['ngRoute', 'd3', 'd3BarChart'])
 
                     var renderTimeout;
 
-
+                    //attach svg onto the angular directive in html file
                     var svg = d3BarChartUtil.declareSVG(ele);
 
                     $window.onresize = function() {
                         scope.$apply();
                     };
-
+                    //watch for change in browser window size 
                     scope.$watch(function() {
                             return angular.element($window)[0].innerWidth;
                         },
@@ -50,7 +51,7 @@ angular.module('myApp.linear_search', ['ngRoute', 'd3', 'd3BarChart'])
                             scope.render(scope.data);
                         }
                     );
-
+                    //watch for a change in data user wants to find
                     scope.$watch('finddata', function(newValue, oldValue) {
 
                         var transition = svg.transition().duration(10000);
@@ -69,11 +70,10 @@ angular.module('myApp.linear_search', ['ngRoute', 'd3', 'd3BarChart'])
                         });
 
                     }, true);
-
+                    //draw bar chart
                     scope.render = function(data) {
 
                         if (!data) {
-                            console.log("hello");
                             return;
                         }
                         if (renderTimeout) clearTimeout(renderTimeout);
