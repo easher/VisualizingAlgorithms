@@ -13,18 +13,18 @@ angular.module('myApp.linear_search', ['ngRoute', 'd3', 'd3BarChart'])
 .controller('linearCtrl', ['$scope', function($scope) {
     $scope.data = [4, 8, 15, 16, 23, 42, 33];
     $scope.finddata = {
-        val: 0
+        val: -1
     };
     $scope.change = function(selected) {
         $scope.finddata.val = selected
     }
 }])
 
-.directive('d3Bars', ['$window', '$timeout', 'd3Service', 'd3BarChartUtil',
-    function($window, $timeout, d3Service, d3BarChartUtil) {
+.directive('d3Bars', ['$window', '$timeout', 'd3Service', 'd3BarChartUtil', '$interval',
+    function($window, $timeout, d3Service, d3BarChartUtil, $interval) {
         return {
             restrict: 'A',
-            
+
             //binds data from controller into directive 
             scope: {
                 'finddata': '=',
@@ -54,22 +54,49 @@ angular.module('myApp.linear_search', ['ngRoute', 'd3', 'd3BarChart'])
                     //watch for a change in data user wants to find
                     scope.$watch('finddata', function(newValue, oldValue) {
 
-                        var transition = svg.transition().duration(10000);
-                        var delay = function(d, i) {
-                            return i * 50;
-                        };
-                        var allG = transition.selectAll("g").delay(delay);
+                        function resetBarsToBlack() {
+                            d3.selectAll('rect').style("fill", "black");
+                        }
 
-                        allG.each(function(d, i) {
+                        //allows us to check to make sure we are starting from a fresh interval when the user 
+                        //selects a new value to search for.
+                        var loop;
 
-                            if (d == newValue.val) {
-                                d3.select(this).attr("fill", "green")
-                            } else {
-                                d3.select(this).attr("fill", "blue");
-                            }
-                        });
+                        //Recursive linear search starting at index i 
+                        function linearSearch(i) {
 
+                            //leave the function so that we can reset the interval
+                            if (angular.isDefined(loop)) return;
+
+                            loop = $interval(function() {
+
+                                if (scope.data[i] == newValue.val) {
+                                    d3.select("#rect" + i).style("fill", "red");
+
+                                    return;
+                                }
+                                if (i < scope.data.length) {
+                                    d3.select("#rect" + i).style("fill", "blue");
+
+                                    return linearSearch(++i);
+                                }
+
+                            }, 700, scope.data.length);
+                        }
+
+                        //reset interval
+                        if (angular.isDefined(loop))
+                            $interval.cancel(loop)
+
+                        resetBarsToBlack();
+
+                        if (newValue.val != -1)
+                            linearSearch(0);
+
+
+                        // $interval.cancel(loop)
                     }, true);
+
                     //draw bar chart
                     scope.render = function(data) {
 
@@ -80,6 +107,7 @@ angular.module('myApp.linear_search', ['ngRoute', 'd3', 'd3BarChart'])
 
                         var width = 320,
                             barHeight = 20;
+
                         d3BarChartUtil.drawBarChart(svg, data, width, barHeight);
 
                     };

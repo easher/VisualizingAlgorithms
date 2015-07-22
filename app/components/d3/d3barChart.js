@@ -29,7 +29,8 @@ angular.module('d3BarChart', [])
                     			.attr("width",height-1)
                     			.attr("height",function(d) {return x(d);})
                     			.attr("x",function(d,i){return i*height-1})
-                    			.attr("y",function(d,i){return width-x(d)});
+                    			.attr("y",function(d,i){return width-x(d)})
+                                .attr("id",function(d,i){return "rect"+i});
             }
         }
     }]);
