@@ -8,6 +8,6 @@ angular.module('myApp', [
   'myApp.linear_search'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: 'views/default_view'});
+  $routeProvider.otherwise({redirectTo: 'modules/default_view'});
 }]);
 

@@ -1,25 +1,6 @@
 'use strict';
 
-angular.module('myApp.linear_search', ['ngRoute', 'd3', 'd3BarChart'])
-
-.config(['$routeProvider', function($routeProvider) {
-    $routeProvider.when('/views/algorithms/linear_search', {
-        templateUrl: 'views/algorithms/linear_search/linear_search.html',
-        controller: 'linearCtrl',
-        directive: 'd3Bars'
-    });
-}])
-
-.controller('linearCtrl', ['$scope', function($scope) {
-    $scope.data = [4, 8, 15, 16, 23, 42, 33];
-    $scope.finddata = {
-        val: -1
-    };
-    $scope.change = function(selected) {
-        $scope.finddata.val = selected
-    }
-}])
-
+angular.module('myApp.linear_search')
 .directive('d3Bars', ['$window', '$timeout', 'd3Service', 'd3BarChartUtil', '$interval',
     function($window, $timeout, d3Service, d3BarChartUtil, $interval) {
         return {
@@ -115,4 +96,4 @@ angular.module('myApp.linear_search', ['ngRoute', 'd3', 'd3BarChart'])
             }
         }
     }
-]);
+])

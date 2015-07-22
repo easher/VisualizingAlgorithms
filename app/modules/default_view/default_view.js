@@ -3,8 +3,8 @@
 angular.module('myApp.default_view', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/views/default_view', {
-    templateUrl: 'views/default_view/default_view.html',
+  $routeProvider.when('/modules/default_view', {
+    templateUrl: 'modules/default_view/default_view.html',
     controller: 'defaultCtrl'
   });
 }])
